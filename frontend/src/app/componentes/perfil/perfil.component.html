@@ -1,0 +1,9 @@
+<h2>Perfil</h2>
+<div *ngIf="perfilData">
+  <p>Nombre: {{ perfilData.nombre }}</p>
+  <p>Email: {{ perfilData.email }}</p>
+</div>
+
+<h2>Perfil</h2>
+<p>Bienvenido al perfil del usuario.</p>
+<button (click)="cerrarSesion()">Cerrar sesión</button>
