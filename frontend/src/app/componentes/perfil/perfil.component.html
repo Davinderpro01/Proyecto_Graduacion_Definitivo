@@ -1,9 +1,56 @@
-<h2>Perfil</h2>
-<div *ngIf="perfilData">
-  <p>Nombre: {{ perfilData.nombre }}</p>
-  <p>Email: {{ perfilData.email }}</p>
-</div>
+<div class="profile-container">
+  <div class="profile-header"*ngIf="perfilData">
+    <h1>Bienvenido, {{ perfilData.nombre }}</h1>
+  </div>
+  <div class="course-cards">
+    <div class="course-card">
+      <img src="assets/Imagenes/Aritmetica.jpg" alt="Course 1">
+      <div class="course-details">
+        <h2>Curso de Aritmética</h2>
+        <p>Encontrarás diversos temas relacionados a operaciones matemáticas haciendo uso de distintos conjuntos numéricos.</p>
+        <button routerLink="/perfil/aritmetica">Ir al curso</button>
+      </div>
+    </div>
+    <div class="course-card">
+      <img src="assets/Imagenes/Geometria.jpg" alt="Course 2">
+      <div class="course-details">
+        <h2>Curso de Geometría</h2>
+        <p>Aprenderás sobre conceptos y operaciones básicas de geometría y su aplicación en el entorno social, cultural y natural.</p>
+        <button routerLink="/perfil/geometria">Ir al curso</button>
+      </div>
+    </div>
+    <div class="course-card">
+      <img src="assets/Imagenes/Algebra.jpg" alt="Course 2">
+      <div class="course-details">
+        <h2>Curso de Álgebra</h2>
+        <p>Conocerás una mezcla fantástica entre letras y números que generan operaciones de gran magnitud y formas de graficar.</p>
+        <button routerLink="/perfil/algebra">Ir al curso</button>
+      </div>
+    </div>
+    <div class="course-card">
+      <img src="assets/Imagenes/Logica.jpg" alt="Course 2">
+      <div class="course-details">
+        <h2>Curso de Lógica</h2>
+        <p>Pon a prueba la lógica de tu cerebro y haz uso del análisis a nivel numérico para solución de problemas de la vida diaria.</p>
+        <button routerLink="/perfil/logica">Ir al curso</button>
+      </div>
+    </div>
+    <div class="course-card">
+      <img src="assets/Imagenes/Calculo.jpg" alt="Course 2">
+      <div class="course-details">
+        <h2>Curso de Cálculo</h2>
+        <p>Te estarás adentrando al área máxima de razonamiento matemático, fuente de la inteligencia artificial.</p>
+        <button routerLink="/perfil/calculo">Ir al curso</button>
+      </div>
+    </div>
+    <div class="course-card">
+      <img src="assets/Imagenes/proximamente.gif" alt="Course 2">
+      <div class="course-details">
+        <h2>Nuevos aprendizajes</h2>
+        <p>Debes estar atento a nuestras actualizaciones para adentrarte aún más en el mundo infinito de las matemáticas.</p>
+        <button routerLink="/perfil/pruebas">Próximamente</button>
+      </div>
+    </div>
 
-<h2>Perfil</h2>
-<p>Bienvenido al perfil del usuario.</p>
-<button (click)="cerrarSesion()">Cerrar sesión</button>
+  </div>
+</div>

@@ -23,7 +23,7 @@ export class IngresoComponent {
     // Realizar la solicitud POST al endpoint de inicio de sesión en el backend
     this.http.post<any>('http://localhost:3000/ingreso', user).subscribe(
       (response: any) => {
-        console.log(response.token); // Verificar si se recibe el token correctamente en la respuesta del servidor
+         // Verificar si se recibe el token correctamente en la respuesta del servidor
         if (response.token) {
           localStorage.setItem('token', response.token);
           this.router.navigate(['/perfil']);
@@ -36,7 +36,6 @@ export class IngresoComponent {
           this.errorMessage = 'Correo o contraseña incorrectos';
         } else {
           this.errorMessage = 'Error en la solicitud de inicio de sesión';
-          console.log('Error en la solicitud de inicio de sesión', error);
         }
       }
     );

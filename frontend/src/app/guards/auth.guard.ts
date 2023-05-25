@@ -23,13 +23,11 @@ export class AuthGuard implements CanActivate {
 
   verifyToken(token: string): Observable<boolean> {
     const headers = new HttpHeaders().set('Authorization', token);
-    console.log('AuthGuard canActivate()'); // Verificar si el guardia de autenticación se ejecuta correctamente
     return this.http.get<any>('http://localhost:3000/perfil', { headers }).pipe(
       map(response => {
         return true;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log(error.error.message);
         if (error.status === 401 && error.error.message === 'Acceso no autorizado') {
           this.router.navigate(['/ingreso']);
         }

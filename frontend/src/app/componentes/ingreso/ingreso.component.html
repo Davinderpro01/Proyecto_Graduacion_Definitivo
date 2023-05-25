@@ -16,8 +16,8 @@
           <input type="password" id="password" name="password" required [(ngModel)]="password" autocomplete="current-password">
           <label>Contraseña</label>
         </div>
-        <a href="/perfil">
-          <button type="button" id="Registrarse" class="btn btn-secondary" (click)="iniciarSesion()">Iniciar Sesión</button>
+        <a href="">
+          <button type="button" id="Registrarse" class="btn btn-secondary" (click)="iniciarSesion(); $event.preventDefault()">Iniciar Sesión</button>
         </a>
         <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
       </form>

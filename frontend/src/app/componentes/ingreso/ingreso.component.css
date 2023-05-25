@@ -1,13 +1,14 @@
 
 
 main {
-  background-image: url(/assets/Imagenes/mate.jpg);
+  background-image: url(/assets/Imagenes/fondoingreso.png);
 	background-repeat: no-repeat;
 	background-size: cover;
 	height: 100vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
 .login-box {

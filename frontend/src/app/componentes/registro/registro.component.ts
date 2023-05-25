@@ -11,6 +11,7 @@ export class RegistroComponent implements OnInit {
   email: string = '';
   password: string = '';
   errorMessage: string = '';
+  validar: string = '';
   successMessage: string = '';
 
   constructor(private http: HttpClient) { }
@@ -26,11 +27,8 @@ export class RegistroComponent implements OnInit {
       this.http.post(url, usuario).subscribe(
         {
           next: (response: any) => {
-            console.log('Registro exitoso:', response);
             this.successMessage = 'Usuario registrado exitosamente.';
-            this.nombre = '';
-            this.email = '';
-            this.password = '';
+
           },
           error: (error: any) => {
             console.error('Error en el registro:', error);
@@ -42,11 +40,17 @@ export class RegistroComponent implements OnInit {
   }
 
   nombreValido(): boolean {
+    this.validar = 'Este campo es obligatorio';
     return !!this.nombre; // Verifica si el campo "nombre" no está vacío
   }
 
   emailValido(): boolean {
+    this.validar = 'Este campo es obligatorio';
     return !!this.email; // Verifica si el campo "email" no está vacío
+  }
+  passwordValido(): boolean {
+    this.validar = 'Este campo es obligatorio';
+    return !!this.password; // Verifica si el campo "email" no está vacío
   }
 
   validarCampos(): boolean {

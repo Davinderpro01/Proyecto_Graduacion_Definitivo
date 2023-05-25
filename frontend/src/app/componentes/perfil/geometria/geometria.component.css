@@ -1,0 +1,78 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.header-card {
+  width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 30);
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+}
+
+.header-card img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+}
+
+.index-card {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+}
+
+.topic-card {
+  width: calc(33.33% - 20px);
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 30);
+  transition: transform 0.3s ease;
+}
+
+.topic-card:hover{
+  transform: translateY(-5px);
+}
+
+.topic-card h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.subtopics {
+  padding-left: 20px;
+  margin-top: 0;
+}
+
+.subtopics li {
+  list-style-type: disc;
+}
+
+button {
+  border: none;
+  outline: none;
+  width: 100%;
+  padding: 10px 0;
+  margin: 10px 0;
+  border-radius: 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: 0.5s ease;
+  background-color: #c80a9c;
+  color: #fff;
+}
+
+button:hover {
+  background-color:  #037175;
+}
