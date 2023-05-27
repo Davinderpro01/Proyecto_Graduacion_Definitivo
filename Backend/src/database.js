@@ -1,6 +1,15 @@
-// const mongoose = require('mongoose');
-// const { mongodb } = require("./keys");
+const mongoose = require('mongoose');
 
-// mongoose.connect(mongodb.URI, {})
-//     .then(db => console.log('Base de datos conectada'))
-//     .catch(err => console.error(err));
+async function conectarDB() {
+  try {
+    await mongoose.connect('mongodb+srv://dsolorzanom1:Devin01@usuarios.ijnb0li.mongodb.net/Almacenar_usuarios?retryWrites=true&w=majority', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log('Conexión exitosa a la base de datos');
+  } catch (error) {
+    console.error('Error al conectar a la base de datos', error);
+  }
+}
+
+module.exports = conectarDB;

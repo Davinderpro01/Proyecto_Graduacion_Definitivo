@@ -3,7 +3,7 @@
 <head>
   <link rel="stylesheet" type="text/css" href="ingreso.component.css">
 </head>
-<body>
+<body background="/assets/Imagenes/movimiento.gif">
   <main>
     <div class="login-box">
       <h2>Inicio de sesión</h2>
@@ -19,6 +19,8 @@
         <a href="">
           <button type="button" id="Registrarse" class="btn btn-secondary" (click)="iniciarSesion(); $event.preventDefault()">Iniciar Sesión</button>
         </a>
+        <div class="alert alert-danger" *ngIf="showEmptyFieldsError">Por favor, completa todos los campos.</div>
+        <div class="alert alert-danger" *ngIf="showAuthError">Correo o contraseña incorrectos.</div>
         <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
       </form>
     </div>

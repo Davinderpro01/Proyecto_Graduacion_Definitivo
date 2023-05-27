@@ -8,6 +8,7 @@ import { PerfilComponent } from "./componentes/perfil/perfil.component";
 import { RegistroComponent } from "./componentes/registro/registro.component";
 
 import { PruebasComponent } from './componentes/perfil/pruebas/pruebas.component';
+import { EstadisticasComponent } from './componentes/perfil/estadisticas/estadisticas.component';
 
 import { AritmeticaComponent } from './componentes/perfil/aritmetica/aritmetica.component';
 import { GeometriaComponent } from './componentes/perfil/geometria/geometria.component';
@@ -74,6 +75,11 @@ const routes: Routes = [
     path: "perfil/pruebas",
     canActivate: [AuthGuard],
     component: PruebasComponent
+  },
+  {
+    path: "perfil/estadisticas",
+    canActivate: [AuthGuard],
+    component: EstadisticasComponent
   },
   {
     path: "perfil/aritmetica",
@@ -239,6 +245,11 @@ const routes: Routes = [
     path: "perfil/logica/logica-matematica",
     canActivate: [AuthGuard],
     component: LogicaMatematicaComponent
+  },
+  {
+    path: "perfil/logica/conjuntos",
+    canActivate: [AuthGuard],
+    component: ConjuntosComponent
   },
   {
     path: "perfil/calculo/limites",

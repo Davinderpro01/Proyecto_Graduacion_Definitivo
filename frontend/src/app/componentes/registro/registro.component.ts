@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registro',
@@ -14,14 +15,19 @@ export class RegistroComponent implements OnInit {
   validar: string = '';
   successMessage: string = '';
 
-  constructor(private http: HttpClient) { }
+  constructor(public http: HttpClient, public router: Router) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void{
+    if(localStorage.getItem("token")){
+
+      this.router.navigate(['/perfil']);
+
+    }
   }
 
   registrarUsuario(): void {
     if (this.validarCampos()) {
-      const url = 'http://localhost:3000/registro'; // Ajusta la URL a la ruta correspondiente en tu backend
+      const url = 'http://localhost:3000/registro';
       const usuario = { nombre: this.nombre, email: this.email, password: this.password };
 
       this.http.post(url, usuario).subscribe(

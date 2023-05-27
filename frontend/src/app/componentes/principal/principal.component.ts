@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-principal',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PrincipalComponent implements OnInit {
 
-  constructor() { }
+  constructor(public http: HttpClient, public router: Router) {}
 
-  ngOnInit(): void {
+
+  ngOnInit(): void{
+    if(localStorage.getItem("token")){
+
+      this.router.navigate(['/perfil']);
+
+    }
   }
 
 }

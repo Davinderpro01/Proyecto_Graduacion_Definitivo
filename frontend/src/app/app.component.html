@@ -15,7 +15,10 @@
             <button type="button" class="btn btn-primary" routerLink="/perfil/pruebas">Pruebas</button>
           </li>
           <li class="nav-item" *ngIf="perfilData">
-            <button type="button" class="btn btn-primary" (click)="cerrarSesion()">Cerrar sesión</button>
+            <button type="button" class="btn btn-primary" routerLink="/perfil/estadisticas">Estadísticas</button>
+          </li>
+          <li class="nav-item" *ngIf="perfilData">
+            <button type="button" class="cerrar-sesion" (click)="cerrarSesion()">Cerrar sesión</button>
           </li>
           <li class="nav-item" *ngIf="!perfilData">
             <button type="button" class="btn btn-primary" routerLink="/registro">Registrarse</button>

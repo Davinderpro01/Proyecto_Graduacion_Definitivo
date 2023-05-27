@@ -1,21 +1,27 @@
-import { Component, OnChanges, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
+import { Usuario } from './model/usuario';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, OnChanges{
+export class AppComponent implements OnInit {
   perfilData: any;
 
-  constructor(private http: HttpClient, private router: Router) { }
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
+  private _items = new BehaviorSubject<Usuario[]>([]);
 
+  set items(value: Usuario[]) {
+    this._items.next(value);
+  }
+  get items() {
+    return this._items.getValue();
   }
 
+  constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
     const token = localStorage.getItem('token');
@@ -25,6 +31,7 @@ export class AppComponent implements OnInit, OnChanges{
       this.http.get<any>('http://localhost:3000/perfil', { headers }).subscribe(
         response => {
           this.perfilData = response.user;
+          this.items = response.user;
           if (this.router.url === '/perfil') {
             this.redirigirAInicioSesion();
           }
@@ -40,11 +47,11 @@ export class AppComponent implements OnInit, OnChanges{
     }
   }
 
-
   redirigirAInicioSesion() {
     this.router.navigateByUrl('/perfil', { skipLocationChange: true }).then(() => {
-      this.router.navigate(['/perfil']);
-      this.ngOnInit();
+      this.router.navigate(['/perfil']).then(() => {
+        this.ngOnInit();
+      });
     });
   }
 
@@ -53,4 +60,5 @@ export class AppComponent implements OnInit, OnChanges{
     this.perfilData = null;
     this.router.navigate(['/ingreso']);
   }
+
 }

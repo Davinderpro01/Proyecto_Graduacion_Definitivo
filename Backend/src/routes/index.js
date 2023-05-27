@@ -1,169 +1,99 @@
-// const { Router, json } = require("express");
-// const router = Router();
+const express = require('express');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const User = require('../models/user');
 
-// const User = require("../models/user")
-
-// const jwt = require("jsonwebtoken")
-
-// router.get("/", (req, res) => res.send ("hola mundo"))
-
-// router.post("/registro", async (req, res)=> {
-//     const { usuario, email, password } = req.body;
-//     const newUser = new User({usuario, email, password})
-//     await newUser.save();
-
-//     const token = jwt.sign({ _id: newUser._id }, "secretkey")
-//     res.status(200).json({token})
-// });
-
-// router.post("/ingreso", async (req, res)=>{
-//     const { email, password } = req.body;
-//     const user = await User.findOne({ email })
-//     if(!user) return res.status(401).send("El correo no existe");
-//     if(user.password !== password) return res.status(401).send("Contraseña incorrecta");
-
-//     const token = jwt.sign({ _id: user._id }, "secretkey");
-//     return res.status(200).json({token});
-// });
-
-// router.get("/tasks", (req, res) =>{
-//     res.json([
-//         {
-//             _id: 1,
-//             name: "tarea 1",
-//             description: "hola",
-//             date: "2023-05-11T01:17:02.199+00:00"
-//         },
-//         {
-//             _id: 2,
-//             name: "tarea 2",
-//             description: "hola",
-//             date: "2023-05-11T01:17:02.199+00:00"
-//         },
-//         {
-//             _id: 3,
-//             name: "tarea 3",
-//             description: "hola",
-//             date: "2023-05-11T01:17:02.199+00:00"
-//         }
-//     ])
-// })
-
-// router.get("/private", verifyToken, (req, res) =>{
-//     res.json([
-//         {
-//             _id: 1,
-//             name: "tarea 1",
-//             description: "hola",
-//             date: "2023-05-11T01:17:02.199+00:00"
-//         },
-//         {
-//             _id: 2,
-//             name: "tarea 2",
-//             description: "hola",
-//             date: "2023-05-11T01:17:02.199+00:00"
-//         },
-//         {
-//             _id: 3,
-//             name: "tarea 3",
-//             description: "hola",
-//             date: "2023-05-11T01:17:02.199+00:00"
-//         }
-//     ])
-// })
-
-// router.get("/profile", verifyToken, (req, res) =>{
-//     res.send(req.userId);
-// })
-
-// module.exports = router;
-
-// function verifyToken(req, res, next){
-//     if(!req.headers.authorization){
-//         return res.status(401).send("Acceso correcto");
-//     }
-//     const token = req.headers.authorization.split(" ")[1]
-//     if(token === "null"){
-//         return res.status(401).send("Acceso denegado");
-//     }
-
-//     const payload = jwt.verify(token, "secretkey")
-//     req.userId = payload._id;
-//     next();
-    
-
-// }
+const router = express.Router();
+const claveSecreta = 'secretKey';
 
 
+function validarToken(req, res, next) {
+    // Obtener el token de la cabecera de autorización
+    const token = req.headers.authorization;
+  
+    try {
+      // Verificar si el token existe
+      if (!token) {
+        return res.status(401).json({ message: 'Acceso no autorizado' });
+      }
+  
+      // Verificar y decodificar el token
+      const decodedToken = jwt.verify(token, claveSecreta);
+  
+      // Agregar el usuario decodificado al objeto de solicitud para usarlo en las rutas protegidas
+      req.usuario = decodedToken;
+  
+      // Continuar con la siguiente función de middleware
+      next();
+    } catch (error) {
+      return res.status(401).json({ message: 'Acceso no autorizado' });
+    }
+  }
 
 
+router.post('/registro', async (req, res) => {
+  try {
+    const { nombre, email, password } = req.body;
 
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: 'El email ya está registrado' });
+    }
 
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
 
+    const newUser = new User({
+      nombre,
+      email,
+      password: hashedPassword,
+    });
+    await newUser.save();
 
+    res.status(201).json({ message: 'Usuario registrado correctamente' });
+  } catch (error) {
+    console.error('Error en el registro de usuario', error);
+    res.status(500).json({ message: 'Error en el servidor' });
+  }
+});
 
+router.post('/ingreso', async (req, res) => {
+  try {
+    const { email, password } = req.body;
 
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).json({ message: 'Credenciales de inicio de sesión inválidas' });
+    }
 
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: 'Credenciales de inicio de sesión inválidas' });
+    }
 
+    const token = jwt.sign({ email: user.email }, claveSecreta, { expiresIn: '1h' });
 
+    res.json({ message: 'Inicio de sesión exitoso', token });
+  } catch (error) {
+    console.error('Error en el inicio de sesión', error);
+    res.status(500).json({ message: 'Error en el servidor' });
+  }
+});
 
+router.get('/perfil', validarToken, async (req, res) => {
+  try {
+    const usuario = req.usuario;
 
+    const user = await User.findOne({ email: usuario.email }).exec();
+    if (!user) {
+      return res.status(404).json({ message: 'Usuario no encontrado' });
+    }
 
+    res.json({ message: 'Acceso autorizado a la ruta protegida', user });
+  } catch (error) {
+    console.error('Error al buscar el usuario en la base de datos', error);
+    res.status(500).json({ message: 'Error en el servidor' });
+  }
+});
 
-
-// const express = require('express');
-// const router = express.Router();
-
-// const passport = require('passport');
-
-
-// router.get('/', (req, res, next) => {
-//     res.render('index');
-// });
-
-// router.get('/registro', (req, res, next) => {
-//     res.render('registro');
-// });
-
-// function isAuthenticated(req, res, next) {
-//     if(req.isAuthenticated()){
-//         return next();
-//     }
-//     res.redirect('/');
-// }
-
-// router.post('/registro', passport.authenticate('local-registro',{
-//     successRedirect: '/perfil',
-//     failureRedirect: '/registro',
-//     passReqToCallback: true
-// }));
-
-// router.get('/ingreso', (req, res, next) => {
-//     res.render('ingreso');
-// });
-
-// router.post('/ingreso', passport.authenticate('local-ingreso',{
-//     successRedirect: '/perfil',
-//     failureRedirect: '/ingreso',
-//     passReqToCallback: true
-// }));
-
-// // router.get('/logout', (req, res, next) => {
-// //     req.logout(() => {
-// //         res.redirect('/ingreso');
-// //     });
-// // });
-
-// router.use((req, res, next) => {
-//     isAuthenticated(req, res, next);
-//     next();
-// });
-
-// router.get('/perfil', (req, res, next) => {
-//     res.render('perfil');
-// });
-
-
-
-// module.exports = router;
-
+module.exports = router;

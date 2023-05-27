@@ -4,3 +4,8 @@
 //     }
 // }
 
+// keys.js
+
+const claveSecreta = 'secretKey';
+
+module.exports = claveSecreta;

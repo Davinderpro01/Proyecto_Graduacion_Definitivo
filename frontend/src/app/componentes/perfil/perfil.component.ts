@@ -22,6 +22,7 @@ export class PerfilComponent implements OnInit {
     }
     else{
       this.router.navigate(['/perfil']);
+
     }
 
 
@@ -30,6 +31,7 @@ export class PerfilComponent implements OnInit {
     this.http.get<any>('http://localhost:3000/perfil', { headers }).subscribe(
       response => {
         this.perfilData = response.user;
+
       },
       (error: HttpErrorResponse) => {
         if (error.status === 401 && error.error.message === 'Acceso no autorizado') {

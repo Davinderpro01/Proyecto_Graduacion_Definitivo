@@ -14,6 +14,7 @@ import { PrincipalComponent } from './componentes/principal/principal.component'
 import { PerfilComponent } from './componentes/perfil/perfil.component';
 
 import { PruebasComponent } from './componentes/perfil/pruebas/pruebas.component';
+import { EstadisticasComponent } from './componentes/perfil/estadisticas/estadisticas.component';
 
 import { AritmeticaComponent } from './componentes/perfil/aritmetica/aritmetica.component';
 import { GeometriaComponent } from './componentes/perfil/geometria/geometria.component';
@@ -60,6 +61,8 @@ import { AplicacionComponent } from './componentes/perfil/calculo/aplicacion/apl
 import { IntegralesComponent } from './componentes/perfil/calculo/integrales/integrales.component';
 import { AplicacionIntegralesComponent } from './componentes/perfil/calculo/aplicacion-integrales/aplicacion-integrales.component';
 import { SucesionesComponent } from './componentes/perfil/calculo/sucesiones/sucesiones.component';
+import { YoutubePipe } from './pipe/youtube.pipe';
+
 
 const routes: Routes = [
   { path: '', redirectTo: '/principal', pathMatch: 'full' },
@@ -116,6 +119,8 @@ const routes: Routes = [
     IntegralesComponent,
     AplicacionIntegralesComponent,
     SucesionesComponent,
+    YoutubePipe,
+    EstadisticasComponent,
   ],
   imports: [
     BrowserModule,
