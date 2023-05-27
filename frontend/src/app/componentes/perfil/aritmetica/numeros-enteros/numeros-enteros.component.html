@@ -6,6 +6,7 @@
           <h2 class="video-title">{{ video.title }}</h2>
           <p class="video-description">{{ video.description }}</p>
           <div class="video-wrapper">
+            <span class="spinner-border"></span>
             <iframe [src]="getSafeUrl(video.url)" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
           </div>
         </div>

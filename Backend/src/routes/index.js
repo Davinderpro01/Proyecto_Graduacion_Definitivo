@@ -23,7 +23,7 @@ function validarToken(req, res, next) {
       // Agregar el usuario decodificado al objeto de solicitud para usarlo en las rutas protegidas
       req.usuario = decodedToken;
   
-      // Continuar con la siguiente función de middleware
+      // Continuar con la siguiente función 
       next();
     } catch (error) {
       return res.status(401).json({ message: 'Acceso no autorizado' });

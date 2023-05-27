@@ -33,6 +33,14 @@
 
 }
 
+.spinner-border{
+  position: absolute;
+  top: 30%;
+  left: 45%;
+  color: red;
+
+}
+
 iframe {
   border-radius: 10px;
   position: absolute;
