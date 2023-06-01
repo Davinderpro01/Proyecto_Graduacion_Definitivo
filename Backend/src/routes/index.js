@@ -2,9 +2,9 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
+require("dotenv").config();
 
 const router = express.Router();
-const claveSecreta = 'secretKey';
 
 
 function validarToken(req, res, next) {
@@ -18,7 +18,7 @@ function validarToken(req, res, next) {
       }
   
       // Verificar y decodificar el token
-      const decodedToken = jwt.verify(token, claveSecreta);
+      const decodedToken = jwt.verify(token, process.env.claveSecreta);
   
       // Agregar el usuario decodificado al objeto de solicitud para usarlo en las rutas protegidas
       req.usuario = decodedToken;
@@ -71,7 +71,7 @@ router.post('/ingreso', async (req, res) => {
       return res.status(401).json({ message: 'Credenciales de inicio de sesión inválidas' });
     }
 
-    const token = jwt.sign({ email: user.email }, claveSecreta, { expiresIn: '1h' });
+    const token = jwt.sign({ email: user.email }, process.env.claveSecreta, { expiresIn: '1h' });
 
     res.json({ message: 'Inicio de sesión exitoso', token });
   } catch (error) {
