@@ -77,7 +77,7 @@ router.post('/ingreso', async (req, res) => {
   } catch (error) {
     console.error('Error en el inicio de sesión', error);
     res.status(500).json({ message: 'Error en el servidor' });
-  }
+  } 
 });
 
 router.get('/perfil', validarToken, async (req, res) => {

@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-perfil',
@@ -28,7 +29,7 @@ export class PerfilComponent implements OnInit {
 
     const headers = new HttpHeaders().set('Authorization', token);
 
-    this.http.get<any>('http://localhost:3000/perfil', { headers }).subscribe(
+    this.http.get<any>(environment.backendUrl+'perfil', { headers }).subscribe(
       response => {
         this.perfilData = response.user;
 

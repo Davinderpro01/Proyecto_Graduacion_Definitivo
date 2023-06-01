@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-ingreso',
@@ -34,7 +35,7 @@ export class IngresoComponent {
     };
 
     // Realizar la solicitud POST al endpoint de inicio de sesión en el backend
-    this.http.post<any>('http://localhost:3000/ingreso', user).subscribe(
+    this.http.post<any>(environment.backendUrl+'ingreso', user).subscribe(
       (response: any) => {
         // Verificar si se recibe el token correctamente en la respuesta del servidor
         if (response.token) {

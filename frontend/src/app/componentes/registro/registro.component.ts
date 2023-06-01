@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-registro',
@@ -27,7 +28,8 @@ export class RegistroComponent implements OnInit {
 
   registrarUsuario(): void {
     if (this.validarCampos()) {
-      const url = 'http://localhost:3000/registro';
+      const url = environment.backendUrl+'registro';
+
       const usuario = { nombre: this.nombre, email: this.email, password: this.password };
 
       this.http.post(url, usuario).subscribe(
